@@ -28,4 +28,7 @@ body
       margin: 0px;
       padding: 50px;
       // font-size: 36px;
+  @media screen and (max-width: 720px)
+    #app
+      width: 100%;
 </style>
