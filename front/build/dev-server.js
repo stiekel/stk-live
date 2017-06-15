@@ -8,6 +8,9 @@ if (!process.env.NODE_ENV) {
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
+var fs = require('fs')
+var https = require('https')
+
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = process.env.NODE_ENV === 'testing'
@@ -82,6 +85,13 @@ devMiddleware.waitUntilValid(() => {
 })
 
 var server = app.listen(port)
+var httpsServer = https.createServer({
+  // key: [pk, 2333],
+  key: fs.readFileSync('../config/ssl/key.pem'),
+  passphrase: 'stkl',
+  cert: fs.readFileSync('../config/ssl/cert.pem')
+}, app)
+httpsServer.listen(8443)
 
 module.exports = {
   ready: readyPromise,
