@@ -1,13 +1,22 @@
 <template lang="jade">
   div
-    h1 Live
-    video#live(autoplay)
+    //- h1 Live
+    el-button(type="primary", icon="caret-right", @click="start") 我要直播
+    //- video#live(autoplay)
 </template>
 
 <script>
 export default {
   name: 'Live',
   methods: {
+    start () {
+      this.$prompt('请输入房间名', '房间名', {
+        confirmButtonText: '开始',
+        cancelButtonText: '取消'
+      }).then(name => {
+        console.log('name', name)
+      })
+    },
     success (stream) {
       let ele = document.getElementById('live')
       ele.srcObject = stream
